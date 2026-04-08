@@ -696,7 +696,7 @@ export default function App() {
             {[
               { title: "ISO 9001", desc: "품질경영시스템 인증", img: certIso9001 },
               { title: "INNO-BIZ", desc: "기술혁신형 중소기업", img: certInnoBiz },
-              { title: "특허 제10-1086395", desc: "승온 효율이 높은 알루미늄계 승온재", img: 1086395 },
+              { title: "특허 제10-1086395", desc: "승온 효율이 높은 알루미늄계 승온재", img: patent1086395 },
               
               { title: "특허 제0338465호", desc: "금속 슬러지 분쇄장치", img: patent0338465 },
               { title: "특허 제0517524호", desc: "탈산제 제조방법", img: patent0517524 },
