@@ -160,7 +160,7 @@ export default function App() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+      <section className="relative h-screen flex items-center justify-start overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
           <img 
             src={furnaceImg} 
@@ -170,7 +170,7 @@ export default function App() {
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/10 to-slate-900/60" />
         </div>
         
-        <div className="relative z-10 px-6 max-w-5xl text-left">
+        <div className="relative z-10 px-6 max-w-5xl text-left ml-0 md:ml-10 lg:ml-20">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -191,7 +191,7 @@ export default function App() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-slate-300 mb-10 font-medium max-w-3xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-slate-300 mb-10 font-medium max-w-3xl leading-relaxed"
           >
             제철, 제강용 부자재, 알루미늄 Dross처리 전문 기업 <br className="hidden md:block" />
             최고의 기술로 자원 재생의 가치를 더합니다.
