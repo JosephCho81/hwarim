@@ -167,10 +167,10 @@ export default function App() {
             alt="Industrial Furnace" 
             className="w-full h-full object-cover opacity-50"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/20 to-slate-900" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/10 to-slate-900/60" />
         </div>
         
-        <div className="relative z-10 text-center px-6 max-w-5xl">
+        <div className="relative z-10 px-6 max-w-5xl text-left">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
