@@ -17,12 +17,12 @@ const alsite85P = "/2.jpg";
 const slagDeoxidizer = "/2.jpg";
 const test1 = "/test1.png";
 const test2 = "/test2.png";
-const certInnoBiz = "https://picsum.photos/seed/cert1/400/600";
-const certIso9001 = "https://picsum.photos/seed/cert2/400/600";
-const patent0338465 = "https://picsum.photos/seed/patent1/400/600";
-const patent0406492 = "https://picsum.photos/seed/patent2/400/600";
-const patent0517524 = "https://picsum.photos/seed/patent3/400/600";
-const patent0557004 = "https://picsum.photos/seed/patent4/400/600";
+const certInnoBiz = "/inobiz.png";
+const certIso9001 = "/9001.png";
+const patent0338465 = "/0338465.png";
+const patent0406492 = "/0406492.png";
+const patent0517524 = "/0517524.png";
+const patent0557004 = "/0557004.png";
 
 declare global {
   interface Window {
