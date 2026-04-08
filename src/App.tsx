@@ -10,20 +10,22 @@ import {
   CheckCircle2, ArrowUpRight, ExternalLink
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import furnaceImg from "./furnace.png";
-import alsite00B from "./ALSITE-00-B.png";
-import alsite00G from "./ALSITE-00-G.png";
-import alsite00P from "./ALSITE-00P.png";
-import alsite40P from "./ALSITE-40P.png";
-import alsite85P from "./ALSITE-85P.png";
-import slagDeoxidizer from "./SLAG_DEOXIDIZER.png";
-import testFurnace from "./TEST_FURNACE.png";
-import certInnoBiz from "./cert_inno_biz.png";
-import certIso9001 from "./cert_iso_9001.png";
-import patent0338465 from "./patent_0338465.png";
-import patent0406492 from "./patent_0406492.png";
-import patent0517524 from "./patent_0517524.png";
-import patent0557004 from "./patent_0557004.png";
+
+// --- Constants ---
+const furnaceImg = "/furnace.png";
+const alsite00B = "/ALSITE-00-B.png";
+const alsite00G = "/ALSITE-00-G.png";
+const alsite00P = "/ALSITE-00P.png";
+const alsite40P = "/ALSITE-40P.png";
+const alsite85P = "/ALSITE-85P.png";
+const slagDeoxidizer = "/SLAG_DEOXIDIZER.png";
+const testFurnace = "/TEST_FURNACE.png";
+const certInnoBiz = "/cert_inno_biz.png";
+const certIso9001 = "/cert_iso_9001.png";
+const patent0338465 = "/patent_0338465.png";
+const patent0406492 = "/patent_0406492.png";
+const patent0517524 = "/patent_0517524.png";
+const patent0557004 = "/patent_0557004.png";
 
 // --- Components ---
 
@@ -701,7 +703,7 @@ export default function App() {
                     </div>
                     <div className="aspect-[3/4] bg-slate-100 rounded-2xl overflow-hidden border border-slate-200">
                       <img 
-                        src={selectedCert.img.length > 50 ? selectedCert.img : `https://picsum.photos/seed/${selectedCert.img}/800/1066`} 
+                        src={selectedCert.img.startsWith('/') || selectedCert.img.startsWith('http') ? selectedCert.img : `https://picsum.photos/seed/${selectedCert.img}/800/1066`} 
                         alt={selectedCert.title} 
                         className="w-full h-full object-contain" 
                       />
