@@ -13,12 +13,12 @@ import { useState, useEffect } from "react";
 
 // --- Constants ---
 const furnaceImg = "/Hwarim.jpg";
-const alsite00B = "/ALSITE-00-B.png";
-const alsite00G = "/ALSITE-00-G.png";
-const alsite00P = "/ALSITE-00P.png";
-const alsite40P = "/ALSITE-40P.png";
-const alsite85P = "/ALSITE-85P.png";
-const slagDeoxidizer = "/SLAG_DEOXIDIZER.png";
+const alsite00B = "/1.jpg";
+const alsite00G = "/1.jpg";
+const alsite00P = "/1.jpg";
+const alsite40P = "/1.jpg";
+const alsite85P = "/1.jpg";
+const slagDeoxidizer = "/2.jpg";
 const testFurnace = "/TEST_FURNACE.png";
 const certInnoBiz = "/cert_inno_biz.png";
 const certIso9001 = "/cert_iso_9001.png";
