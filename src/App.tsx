@@ -23,6 +23,7 @@ const patent0338465 = "/0338465.png";
 const patent0406492 = "/0406492.png";
 const patent0517524 = "/0517524.png";
 const patent0557004 = "/0557004.png";
+const patent1086395 = "/1086395.png";
 
 declare global {
   interface Window {
