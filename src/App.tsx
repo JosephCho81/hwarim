@@ -5,9 +5,9 @@
 
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import {
-  Menu, X, ChevronRight, Factory, Recycle, Award, Users,
-  History, Settings, ShieldCheck, Mail, Phone, MapPin,
-  CheckCircle2, ArrowUpRight, ExternalLink
+  Menu, X, ChevronRight, Recycle, Award,
+  ShieldCheck, Mail, Phone, MapPin,
+  CheckCircle2, ArrowUpRight
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -28,11 +28,9 @@ const patent0406492 = "/patent_0406492.png";
 const patent0517524 = "/patent_0517524.png";
 const patent0557004 = "/patent_0557004.png";
 
-// --- Components ---
-
+// --- Navbar ---
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -40,57 +38,27 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "회사소개", href: "#about" },
-    { name: "연혁", href: "#history" },
-    { name: "제품정보", href: "#products" },
-    { name: "설비/공정", href: "#facilities" },
-    { name: "인증현황", href: "#certifications" },
-  ];
-
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "glass-nav py-3" : "bg-transparent py-6"}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <a href="#" className="flex items-center gap-3">
-          <div className="relative w-10 h-10 flex items-center justify-center">
-            <Recycle className="w-full h-full text-brand" strokeWidth={2.5} />
-            <span className="absolute text-[9px] font-black text-slate-700 mt-0.5">HR</span>
-          </div>
-          <span className={`font-bold text-xl tracking-tight ${isScrolled ? "text-slate-900" : "text-white"}`}>
-            (주)화림
-          </span>
-        </a>
-
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="text-sm font-medium">
-              {link.name}
-            </a>
-          ))}
-        </div>
-
-        <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur py-4 px-6">
+      <div className="max-w-7xl mx-auto flex justify-between">
+        <span className="font-bold">(주)화림</span>
       </div>
     </nav>
   );
 };
 
-// --- Main App ---
-
+// --- App ---
 export default function App() {
   const [selectedCert, setSelectedCert] = useState<any>(null);
 
-  // ✅ Hook 위치 수정
+  // ✅ Hook 정상 위치
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
   });
 
-  // ✅ 카카오맵 스크립트 정상 useEffect 처리
+  // ✅ 카카오맵 정상 처리
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js";
@@ -112,13 +80,36 @@ export default function App() {
 
   return (
     <div className="relative">
-      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-brand z-[60] origin-left" style={{ scaleX }} />
+
+      {/* 스크롤 바 */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-500 z-50 origin-left"
+        style={{ scaleX }}
+      />
 
       <Navbar />
 
-      {/* 최소 렌더 구조 유지 */}
+      {/* Hero */}
       <section className="h-screen flex items-center justify-center bg-slate-900 text-white">
-        <h1 className="text-4xl font-bold">(주)화림</h1>
+        <h1 className="text-5xl font-bold">(주)화림</h1>
+      </section>
+
+      {/* 제품 샘플 */}
+      <section className="p-20 grid grid-cols-2 gap-10">
+        {[alsite00B, alsite00G, alsite00P, alsite40P].map((img, i) => (
+          <div key={i} className="border p-4">
+            <img src={img} className="w-full h-60 object-cover" />
+          </div>
+        ))}
+      </section>
+
+      {/* 인증 */}
+      <section className="p-20 grid grid-cols-4 gap-6">
+        {[certIso9001, certInnoBiz, patent0338465, patent0406492].map((img, i) => (
+          <div key={i} className="border p-4">
+            <img src={img} className="w-full h-40 object-contain" />
+          </div>
+        ))}
       </section>
 
       {/* 지도 */}
@@ -128,6 +119,16 @@ export default function App() {
           className="w-full h-[400px]"
         ></div>
       </section>
+
+      {/* 연락처 */}
+      <section className="p-20">
+        <div className="space-y-4">
+          <div className="flex gap-3"><MapPin /> 경남 함안군</div>
+          <div className="flex gap-3"><Phone /> 055-583-8063</div>
+          <div className="flex gap-3"><Mail /> hwarim2@naver.com</div>
+        </div>
+      </section>
+
     </div>
   );
 }
