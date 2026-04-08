@@ -115,9 +115,7 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
-          <a href="#contact" className="bg-brand hover:bg-brand-dark text-white px-5 py-2 rounded-full text-sm font-semibold transition-all">
-            문의하기
-          </a>
+       
         </div>
 
         {/* Mobile Menu Toggle */}
