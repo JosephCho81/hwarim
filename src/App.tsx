@@ -2,7 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-
+import { useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { 
   Menu, X, ChevronRight, Factory, Recycle, Award, Users, 
@@ -29,6 +29,22 @@ const patent0517524 = "/patent_0517524.png";
 const patent0557004 = "/patent_0557004.png";
 
 // --- Components ---
+
+useEffect(() => {
+  const script = document.createElement("script");
+  script.src = "https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js";
+  script.async = true;
+  document.body.appendChild(script);
+
+  script.onload = () => {
+    new (window as any).daum.roughmap.Lander({
+      timestamp: "1775634738188",
+      key: "kcri6awg79c",
+      mapWidth: "100%",
+      mapHeight: "400",
+    }).render();
+  };
+}, []);
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -761,31 +777,13 @@ export default function App() {
               </div>
             </div>
 
-            <div className="bg-slate-50 p-10 rounded-3xl border border-slate-200">
-              <h3 className="text-2xl font-bold mb-8">빠른 문의</h3>
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-600">성함 / 업체명</label>
-                    <input type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand transition-colors" placeholder="홍길동" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-600">연락처</label>
-                    <input type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand transition-colors" placeholder="010-0000-0000" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-600">문의 내용</label>
-                  <textarea rows={4} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand transition-colors" placeholder="문의하실 내용을 입력해주세요."></textarea>
-                </div>
-                <button className="w-full bg-brand hover:bg-brand-dark text-white py-4 rounded-xl font-bold text-lg transition-all">
-                  문의 보내기
-                </button>
-                <p className="text-center text-xs text-slate-400">
-                  * 본 양식은 데모용이며 실제 데이터는 저장되지 않습니다. 이메일로 직접 문의 부탁드립니다.
-                </p>
-              </form>
-            </div>
+<div className="bg-slate-50 p-6 rounded-3xl border border-slate-200">
+  <div
+    id="daumRoughmapContainer1775634738188"
+    className="root_daum_roughmap root_daum_roughmap_landing"
+  ></div>
+</div>
+            
           </div>
         </div>
       </section>
