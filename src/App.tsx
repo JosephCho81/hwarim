@@ -24,7 +24,54 @@ const patent0406492 = "https://picsum.photos/seed/patent2/400/600";
 const patent0517524 = "https://picsum.photos/seed/patent3/400/600";
 const patent0557004 = "https://picsum.photos/seed/patent4/400/600";
 
+declare global {
+  interface Window {
+    daum: any;
+  }
+}
+
 // --- Components ---
+
+const KakaoMap = () => {
+  return (
+    <div className="w-full overflow-hidden rounded-3xl border border-slate-200 shadow-sm bg-white">
+      <div className="relative w-full aspect-video md:aspect-[16/10]">
+        <a 
+          href="https://map.kakao.com/?urlX=805400.0000000098&urlY=503331.99999999953&name=%EA%B2%BD%EB%82%A8%20%ED%95%A8%EC%95%88%EA%B5%B0%20%EA%B5%B0%EB%B6%81%EB%A9%B4%20%EC%9C%A0%EC%A0%841%EA%B8%B8%2031&map_type=TYPE_MAP&from=roughmap" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="block w-full h-full"
+        >
+          <img 
+            src="https://t1.daumcdn.net/roughmap/imgmap/63066dda2778d51043d25561890ca37c903ec0c57acb9bb800bd0f7f1747939d" 
+            alt="화림 위치 지도" 
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+        </a>
+      </div>
+      <div className="flex justify-between items-center px-4 py-3 bg-slate-50 border-t border-slate-100">
+        <a href="https://map.kakao.com" target="_blank" rel="noopener noreferrer">
+          <img 
+            src="https://t1.kakaocdn.net/localimg/localimages/07/2018/pc/common/logo_kakaomap.png" 
+            width="72" 
+            height="16" 
+            alt="카카오맵" 
+            referrerPolicy="no-referrer"
+          />
+        </a>
+        <a 
+          target="_blank" 
+          rel="noopener noreferrer"
+          href="https://map.kakao.com/?from=roughmap&eName=%EA%B2%BD%EB%82%A8%20%ED%95%A8%EC%95%88%EA%B5%B0%20%EA%B5%B0%EB%B6%81%EB%A9%B4%20%EC%9C%A0%EC%A0%841%EA%B8%B8%2031&eX=805400.0000000098&eY=503331.99999999953" 
+          className="text-xs font-bold text-slate-900 hover:text-brand transition-colors"
+        >
+          길찾기
+        </a>
+      </div>
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -765,30 +812,15 @@ export default function App() {
               </div>
             </div>
 
-            <div className="bg-slate-50 p-10 rounded-3xl border border-slate-200">
-              <h3 className="text-2xl font-bold mb-8">빠른 문의</h3>
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-600">성함 / 업체명</label>
-                    <input type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand transition-colors" placeholder="홍길동" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-600">연락처</label>
-                    <input type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand transition-colors" placeholder="010-0000-0000" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-600">문의 내용</label>
-                  <textarea rows={4} className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand transition-colors" placeholder="문의하실 내용을 입력해주세요."></textarea>
-                </div>
-                <button className="w-full bg-brand hover:bg-brand-dark text-white py-4 rounded-xl font-bold text-lg transition-all">
-                  문의 보내기
-                </button>
-                <p className="text-center text-xs text-slate-400">
-                  * 본 양식은 데모용이며 실제 데이터는 저장되지 않습니다. 이메일로 직접 문의 부탁드립니다.
+            <div className="space-y-8">
+              <h3 className="text-2xl font-bold mb-8">찾아오시는 길</h3>
+              <KakaoMap />
+              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  * 지도가 보이지 않을 경우 페이지를 새로고침 해주세요. <br />
+                  * 카카오맵 서비스를 통해 정확한 위치 정보를 제공하고 있습니다.
                 </p>
-              </form>
+              </div>
             </div>
           </div>
         </div>
