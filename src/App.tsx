@@ -1,17 +1,13 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { 
-  Menu, X, ChevronRight, Factory, Recycle, Award, Users, 
-  History, Settings, ShieldCheck, Mail, Phone, MapPin, 
-  CheckCircle2, ArrowUpRight, ExternalLink
+  Menu, X, ChevronRight, Factory, Recycle, Award, 
+  Settings, ShieldCheck, Mail, Phone, MapPin, 
+  CheckCircle2, ArrowUpRight
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 // --- Constants ---
+// Using the high-quality images from the previous version where applicable
 const furnaceImg = "/Hwarim.jpg";
 const alsite00B = "/1.jpg";
 const alsite00G = "/1.jpg";
@@ -21,12 +17,12 @@ const alsite85P = "/2.jpg";
 const slagDeoxidizer = "/2.jpg";
 const test1 = "/test1.png";
 const test2 = "/test2.png";
-const certInnoBiz = "/cert_inno_biz.png";
-const certIso9001 = "/cert_iso_9001.png";
-const patent0338465 = "/patent_0338465.png";
-const patent0406492 = "/patent_0406492.png";
-const patent0517524 = "/patent_0517524.png";
-const patent0557004 = "/patent_0557004.png";
+const certInnoBiz = "https://picsum.photos/seed/cert1/400/600";
+const certIso9001 = "https://picsum.photos/seed/cert2/400/600";
+const patent0338465 = "https://picsum.photos/seed/patent1/400/600";
+const patent0406492 = "https://picsum.photos/seed/patent2/400/600";
+const patent0517524 = "https://picsum.photos/seed/patent3/400/600";
+const patent0557004 = "https://picsum.photos/seed/patent4/400/600";
 
 // --- Components ---
 
@@ -49,14 +45,14 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "glass-nav py-3" : "bg-transparent py-6"}}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "glass-nav py-3" : "bg-transparent py-6"}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <a href="#" className="flex items-center gap-3">
           <div className="relative w-10 h-10 flex items-center justify-center">
             <Recycle className="w-full h-full text-brand" strokeWidth={2.5} />
             <span className="absolute text-[9px] font-black text-slate-700 mt-0.5">HR</span>
           </div>
-          <span className={font-bold text-xl tracking-tight ${isScrolled ? "text-slate-900" : "text-white"}}>
+          <span className={`font-bold text-xl tracking-tight ${isScrolled ? "text-slate-900" : "text-white"}`}>
             (주)화림 <span className="text-xs font-medium opacity-60 ml-1">HWARIM</span>
           </span>
         </a>
@@ -67,7 +63,7 @@ const Navbar = () => {
             <a 
               key={link.name} 
               href={link.href} 
-              className={text-sm font-medium transition-colors hover:text-brand ${isScrolled ? "text-slate-600" : "text-white/90"}}
+              className={`text-sm font-medium transition-colors hover:text-brand ${isScrolled ? "text-slate-600" : "text-white/90"}`}
             >
               {link.name}
             </a>
@@ -84,31 +80,34 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 p-6 flex flex-col gap-4 md:hidden shadow-xl"
-        >
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-lg font-medium text-slate-700 hover:text-brand"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a 
-            href="#contact" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="bg-brand text-white text-center py-3 rounded-lg font-bold"
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 p-6 flex flex-col gap-4 md:hidden shadow-xl"
           >
-            문의하기
-          </a>
-        </motion.div>
-      )}
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-lg font-medium text-slate-700 hover:text-brand"
+              >
+                {link.name}
+              </a>
+            ))}
+            <a 
+              href="#contact" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="bg-brand text-white text-center py-3 rounded-lg font-bold"
+            >
+              문의하기
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
@@ -119,14 +118,14 @@ const SectionHeading = ({ title, subtitle, light = false }: { title: string, sub
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className={w-12 h-1.5 bg-brand mb-4}
+      className="w-12 h-1.5 bg-brand mb-4"
     />
     <motion.h2 
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.1 }}
-      className={heading-lg mb-4 ${light ? "text-white" : "text-slate-900"}}
+      className={`heading-lg mb-4 ${light ? "text-white" : "text-slate-900"}`}
     >
       {title}
     </motion.h2>
@@ -136,7 +135,7 @@ const SectionHeading = ({ title, subtitle, light = false }: { title: string, sub
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
-        className={subheading ${light ? "text-slate-300" : "text-slate-600"}}
+        className={`subheading ${light ? "text-slate-300" : "text-slate-600"}`}
       >
         {subtitle}
       </motion.p>
@@ -167,6 +166,7 @@ export default function App() {
             src={furnaceImg} 
             alt="Industrial Furnace" 
             className="w-full h-full object-cover opacity-50"
+            referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/10 to-slate-900/60" />
         </div>
@@ -201,12 +201,12 @@ export default function App() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-start gap-4"
           >
             <a href="#about" className="w-full sm:w-auto bg-brand hover:bg-brand-dark text-white px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2 group">
               회사 소개 보기 <ChevronRight className="group-hover:translate-x-1 transition-transform" />
             </a>
-            <a href="#products" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg transition-all">
+            <a href="#products" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg transition-all text-center">
               제품 정보 확인
             </a>
           </motion.div>
@@ -222,7 +222,7 @@ export default function App() {
         </motion.div>
       </section>
 
-      {/* Intro Section (Page 3) */}
+      {/* Intro Section */}
       <section id="about" className="section-padding bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -237,6 +237,7 @@ export default function App() {
                   src={furnaceImg} 
                   alt="Furnace Detail" 
                   className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
                 />
               </div>
               <div className="absolute -bottom-8 -right-8 bg-brand p-8 rounded-2xl shadow-xl hidden md:block">
@@ -294,7 +295,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Overview Stats (Page 7) */}
+      {/* Overview Stats */}
       <section className="bg-slate-900 py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -319,7 +320,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Philosophy (Page 8) */}
+      {/* Philosophy */}
       <section className="section-padding bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -367,7 +368,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* History Table (Page 4-6) */}
+      {/* History Table */}
       <section id="history" className="section-padding bg-white">
         <div className="max-w-7xl mx-auto">
           <SectionHeading title="회사 연혁" subtitle="1998년 설립 이후 끊임없는 기술 혁신으로 성장해왔습니다." />
@@ -425,7 +426,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Products Section (Page 15-16) */}
+      {/* Products Section */}
       <section id="products" className="section-padding bg-white text-slate-900">
         <div className="max-w-7xl mx-auto">
           <SectionHeading 
@@ -433,7 +434,7 @@ export default function App() {
             subtitle="최고의 기술력으로 생산되는 고품질 BRIQUETTE 및 ALSITE 제품군입니다." 
           />
 
-          {/* Product Photos Layout (Page 16) */}
+          {/* Product Photos Layout */}
           <div className="grid md:grid-cols-2 gap-16 mb-20">
             {/* BRIQUETTE Section */}
             <div className="space-y-8">
@@ -458,6 +459,7 @@ export default function App() {
                         src={item.img} 
                         alt={item.name} 
                         className="w-full h-full object-cover" 
+                        referrerPolicy="no-referrer"
                       />
                     </div>
                     <p className="text-center text-sm font-bold text-slate-900">{item.name}</p>
@@ -489,6 +491,7 @@ export default function App() {
                         src={item.img} 
                         alt={item.name} 
                         className="w-full h-full object-cover" 
+                        referrerPolicy="no-referrer"
                       />
                     </div>
                     <div className="text-center">
@@ -501,7 +504,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Production Capacity Table (Page 15) */}
+          {/* Production Capacity Table */}
           <div className="overflow-x-auto rounded-2xl border border-slate-200">
             <table className="w-full text-center border-collapse">
               <thead>
@@ -539,7 +542,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Facilities & Process (Page 9-11) */}
+      {/* Facilities & Process */}
       <section id="facilities" className="section-padding bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-20">
@@ -624,7 +627,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Clients (Page 14) */}
+      {/* Clients */}
       <section className="py-20 bg-slate-50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h3 className="text-slate-400 font-bold tracking-widest uppercase text-sm mb-12">주요 거래처</h3>
@@ -638,7 +641,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Certifications (Page 17-19) */}
+      {/* Certifications */}
       <section id="certifications" className="section-padding bg-white">
         <div className="max-w-7xl mx-auto">
           <SectionHeading title="인증 및 특허 현황" subtitle="품질 경영 시스템과 독자적인 기술력을 공식적으로 인정받았습니다." />
@@ -704,9 +707,10 @@ export default function App() {
                     </div>
                     <div className="aspect-[3/4] bg-slate-100 rounded-2xl overflow-hidden border border-slate-200">
                       <img 
-                        src={selectedCert.img.includes('.') || selectedCert.img.startsWith('data:') || selectedCert.img.startsWith('http') ? selectedCert.img : https://picsum.photos/seed/${selectedCert.img}/800/1066} 
+                        src={selectedCert.img.includes('.') || selectedCert.img.startsWith('data:') || selectedCert.img.startsWith('http') ? selectedCert.img : `https://picsum.photos/seed/${selectedCert.img}/800/1066`} 
                         alt={selectedCert.title} 
                         className="w-full h-full object-contain" 
+                        referrerPolicy="no-referrer"
                       />
                     </div>
                     <p className="mt-6 text-center text-xs text-slate-400">
