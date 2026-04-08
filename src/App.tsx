@@ -10,20 +10,22 @@ import {
   CheckCircle2, ArrowUpRight, ExternalLink
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import furnaceImg from "./assets/furnace.png";
-import alsite00B from "./assets/ALSITE-00-B.png";
-import alsite00G from "./assets/ALSITE-00-G.png";
-import alsite00P from "./assets/ALSITE-00P.png";
-import alsite40P from "./assets/ALSITE-40P.png";
-import alsite85P from "./assets/ALSITE-85P.png";
-import slagDeoxidizer from "./assets/SLAG_DEOXIDIZER.png";
-import testFurnace from "./assets/TEST_FURNACE.png";
-import certInnoBiz from "./assets/cert_inno_biz.png";
-import certIso9001 from "./assets/cert_iso_9001.png";
-import patent0338465 from "./assets/patent_0338465.png";
-import patent0406492 from "./assets/patent_0406492.png";
-import patent0517524 from "./assets/patent_0517524.png";
-import patent0557004 from "./assets/patent_0557004.png";
+
+// --- Constants ---
+const furnaceImg = "/furnace.png";
+const alsite00B = "/ALSITE-00-B.png";
+const alsite00G = "/ALSITE-00-G.png";
+const alsite00P = "/ALSITE-00P.png";
+const alsite40P = "/ALSITE-40P.png";
+const alsite85P = "/ALSITE-85P.png";
+const slagDeoxidizer = "/SLAG_DEOXIDIZER.png";
+const testFurnace = "/TEST_FURNACE.png";
+const certInnoBiz = "/cert_inno_biz.png";
+const certIso9001 = "/cert_iso_9001.png";
+const patent0338465 = "/patent_0338465.png";
+const patent0406492 = "/patent_0406492.png";
+const patent0517524 = "/patent_0517524.png";
+const patent0557004 = "/patent_0557004.png";
 
 // --- Components ---
 
