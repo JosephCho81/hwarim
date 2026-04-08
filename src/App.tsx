@@ -19,7 +19,8 @@ const alsite00P = "/2.jpg";
 const alsite40P = "/2.jpg";
 const alsite85P = "/2.jpg";
 const slagDeoxidizer = "/2.jpg";
-const testFurnace = "/TEST_FURNACE.png";
+const test1 = "/test1.png";
+const test2 = "/test2.png";
 const certInnoBiz = "/cert_inno_biz.png";
 const certIso9001 = "/cert_iso_9001.png";
 const patent0338465 = "/patent_0338465.png";
@@ -441,8 +442,8 @@ export default function App() {
                 {[
                   { name: "ALSITE-00-G", img: alsite00G, desc: "" },
                   { name: "ALSITE-00-B", img: alsite00B, desc: "" },
-                  { name: "TEST \"예\" 퍼짐성 TEST", img: "https://picsum.photos/seed/test-spread/600/450", desc: "" },
-                  { name: "실 조업로에서 TEST 예 - I사", img: testFurnace, desc: "" }
+                  { name: "TEST \"예\" 퍼짐성 TEST", img: test1, desc: "" },
+                  { name: "실 조업로에서 TEST 예 - I사", img: test2, desc: "" }
                 ].map((item, i) => (
                   <motion.div 
                     key={i}
