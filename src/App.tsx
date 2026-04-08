@@ -2,7 +2,6 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import { useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { 
   Menu, X, ChevronRight, Factory, Recycle, Award, Users, 
@@ -29,12 +28,6 @@ const patent0517524 = "/patent_0517524.png";
 const patent0557004 = "/patent_0557004.png";
 
 // --- Components ---
-
-useEffect(() => {
-  const script = document.createElement("script");
-  script.src = "https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js";
-  script.async = true;
-  document.body.appendChild(script);
 
   script.onload = () => {
     new (window as any).daum.roughmap.Lander({
@@ -164,6 +157,15 @@ const SectionHeading = ({ title, subtitle, light = false }: { title: string, sub
 
 export default function App() {
   const [selectedCert, setSelectedCert] = useState<{ title: string; desc: string; img: string } | null>(null);
+
+  useEffect(() => {
+  const script = document.createElement("script");
+  script.src = "https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js";
+  script.async = true;
+  document.body.appendChild(script);
+
+
+  
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
