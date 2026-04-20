@@ -217,7 +217,7 @@ export default function App() {
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/10 to-slate-900/60" />
         </div>
         
-        <div className="relative z-10 px-6 max-w-5xl text-left ml-0 md:ml-10 lg:ml-20">
+        <div className="relative z-10 px-6 max-w-5xl text-left ml-0 sm:ml-8 md:ml-16 lg:ml-24 xl:ml-32">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -271,7 +271,7 @@ export default function App() {
       {/* Intro Section */}
       <section id="about" className="section-padding bg-slate-50">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -376,7 +376,7 @@ export default function App() {
             />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
             {[
               { 
                 title: "품질 방침", 
@@ -481,7 +481,7 @@ export default function App() {
           />
 
           {/* Product Photos Layout */}
-          <div className="grid md:grid-cols-2 gap-16 mb-20">
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-16 mb-20">
             {/* BRIQUETTE Section */}
             <div className="space-y-8">
               <h3 className="text-2xl font-bold border-l-4 border-brand pl-4 mb-8">[ BRIQUETTE ]</h3>
@@ -591,11 +591,11 @@ export default function App() {
       {/* Facilities & Process */}
       <section id="facilities" className="section-padding bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-20">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
             <div>
               <SectionHeading title="제조 및 검사 설비" subtitle="최첨단 설비와 엄격한 품질 검사 시스템을 통해 완벽한 제품을 생산합니다." />
               
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {[
                   { name: "BALL MILL 분쇄기", spec: "3톤 / 시간" },
                   { name: "Briquette M/C", spec: "5톤 / 시간 (3set)" },
@@ -677,10 +677,10 @@ export default function App() {
       <section className="py-20 bg-slate-50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h3 className="text-slate-400 font-bold tracking-widest uppercase text-sm mb-12">주요 거래처</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-y-16 md:gap-x-20 opacity-60 grayscale hover:grayscale-0 transition-all max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-y-16 md:gap-x-20 opacity-60 grayscale hover:grayscale-0 transition-all max-w-5xl mx-auto">
             {["현대제철", "포스코엠텍", "세아베스틸", "동국제강", "한국철강", "한주금속"].map((client) => (
               <div key={client} className="flex items-center justify-center">
-                <span className="text-xl md:text-3xl font-black text-slate-400">{client}</span>
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-slate-400">{client}</span>
               </div>
             ))}
           </div>
@@ -692,7 +692,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <SectionHeading title="인증 및 특허 현황" subtitle="품질 경영 시스템과 독자적인 기술력을 공식적으로 인정받았습니다." />
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-16">
             {[
               { title: "ISO 9001", desc: "품질경영시스템 인증", img: certIso9001 },
               { title: "INNO-BIZ", desc: "기술혁신형 중소기업", img: certInnoBiz },
@@ -773,7 +773,7 @@ export default function App() {
       {/* Contact Section */}
       <section id="contact" className="section-padding bg-white text-slate-900">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-20">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
             <div>
               <SectionHeading 
                 title="문의하기" 
