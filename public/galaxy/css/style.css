@@ -1,0 +1,63 @@
+:root {
+  --bg: #f4f5f7;
+  --card: #fff;
+  --text: #1d2129;
+  --muted: #646a73;
+  --line: #dfe1e5;
+  --accent: #03a94d;
+  --warn: #c2410c;
+  --err: #c81e1e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.6 -apple-system, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}
+main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 22px; margin: 0 0 4px; }
+h2 { font-size: 17px; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; }
+.note { color: var(--muted); margin: 0 0 20px; font-size: 13px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.step {
+  display: inline-grid; place-items: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent); color: #fff; font-size: 14px;
+}
+.drop {
+  display: block;
+  border: 2px dashed var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  margin: 8px 0;
+}
+.drop:hover, .drop:focus-within { border-color: var(--accent); }
+.drop input { display: block; margin: 0 auto 6px; max-width: 100%; }
+.drop span { color: var(--muted); font-size: 13px; }
+.msg { min-height: 1.6em; margin: 8px 0 0; white-space: pre-line; }
+.msg.ok { color: var(--accent); }
+.msg.err { color: var(--err); font-weight: 600; }
+.keep {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  background: var(--bg); border-radius: 6px; padding: 8px 12px; font-size: 13px; margin-bottom: 8px;
+}
+.link { background: none; border: 0; color: var(--err); cursor: pointer; text-decoration: underline; font: inherit; }
+.link:disabled { color: var(--muted); cursor: default; text-decoration: none; }
+details { border-top: 1px solid var(--line); padding: 8px 0; }
+summary { cursor: pointer; font-weight: 600; }
+summary .count { display: inline-block; min-width: 2em; margin-left: 6px; color: var(--accent); }
+details.warn summary .count { color: var(--warn); }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 13px; }
+th, td { border: 1px solid var(--line); padding: 4px 6px; text-align: left; vertical-align: top; white-space: nowrap; }
+th { background: var(--bg); }
+.empty { color: var(--muted); font-size: 13px; margin: 6px 0 0; }
