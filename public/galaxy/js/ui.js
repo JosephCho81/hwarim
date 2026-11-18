@@ -1,8 +1,8 @@
 // 화면 연결. 고객 데이터는 console·외부 전송 금지.
-import { readWorkbook, firstSheetRows, UserError } from './sheet.js';
+import { readWorkbook, sheetRowsWith, UserError } from './sheet.js';
 import { openOrderFile } from './decrypt.js';
-import { parseOrders, lotteFile, toMatchRecords } from './toLotte.js';
-import { parseInvoices, matchInvoices } from './match.js';
+import { parseOrders, lotteFile, toMatchRecords, ORDER_HEADERS } from './toLotte.js';
+import { parseInvoices, matchInvoices, INVOICE_HEADERS } from './match.js';
 import { naverFile } from './toNaver.js';
 import { saveRecords, loadRecords, clearRecords } from './store.js';
 import { renderReport } from './report.js';
@@ -47,7 +47,7 @@ function refreshKeep() {
 
 async function readOrders(file) {
   const plain = await openOrderFile(await file.arrayBuffer());
-  return parseOrders(firstSheetRows(readWorkbook(plain)));
+  return parseOrders(sheetRowsWith(readWorkbook(plain), ORDER_HEADERS));
 }
 
 function keep(orders) {
@@ -97,7 +97,7 @@ async function onInvoiceFile(e) {
   try {
     const buf = new Uint8Array(await file.arrayBuffer());
     if (!buf.length) throw new UserError('빈 파일입니다.');
-    const invoices = parseInvoices(firstSheetRows(readWorkbook(buf)));
+    const invoices = parseInvoices(sheetRowsWith(readWorkbook(buf), INVOICE_HEADERS));
     const result = matchInvoices(data.records, invoices);
     renderReport($('report'), result);
     if (!result.assigned.length) throw new UserError('발송처리할 행이 없습니다. 아래 목록을 확인하세요.');
