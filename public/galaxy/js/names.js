@@ -36,12 +36,11 @@ export function invoiceIndex(rows) {
 }
 
 // 이름마다 맨 위 송장 하나. "홍길동_2"처럼 꼬리째 붙여넣으면 그 박스의 송장.
-// others: 채택 안 된 송장 개수(여러 박스·동명이인 확인용)
 export function lookup(names, index) {
   return names.map((name) => {
     const key = compact(name);
     const list = !key ? []
       : (key !== normName(key) && index.exact.get(key)) || index.base.get(normName(key)) || [];
-    return { name, invoice: list[0] || '', others: Math.max(list.length - 1, 0) };
+    return { name, invoice: list[0] || '' };
   });
 }

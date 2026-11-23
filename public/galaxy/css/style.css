@@ -47,7 +47,8 @@ h2 { font-size: 17px; margin: 0 0 8px; display: flex; align-items: center; gap: 
 .msg.ok { color: var(--accent); }
 .msg.err { color: var(--err); font-weight: 600; }
 .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.pair h3 { font-size: 13px; color: var(--muted); margin: 0 0 4px; font-weight: 600; }
+.col-head { display: flex; justify-content: space-between; align-items: center; height: 36px; margin-bottom: 4px; }
+.col-head h3 { font-size: 13px; color: var(--muted); margin: 0; font-weight: 600; }
 /* 두 칸의 줄 높이·여백을 똑같이 맞춰 같은 줄끼리 나란히 보이게 한다 */
 .lines {
   display: block; width: 100%; height: calc(20 * 24px + 22px); margin: 0;
@@ -58,10 +59,9 @@ h2 { font-size: 17px; margin: 0 0 8px; display: flex; align-items: center; gap: 
 textarea.lines:focus { outline: 2px solid var(--accent); border-color: transparent; }
 #out { background: var(--bg); }
 #out div { height: 24px; }
-#out .miss { color: var(--err); }
-#out small { color: var(--warn); }
+#out .miss::before { content: '없음'; color: var(--err); }
 .btn {
   background: var(--accent); color: #fff; border: 0; border-radius: 6px;
-  padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer; margin-top: 8px;
+  padding: 6px 14px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
 }
 .btn:disabled { background: var(--line); color: var(--muted); cursor: default; }

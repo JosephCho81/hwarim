@@ -11,15 +11,11 @@ function say(text, kind = '') {
   $('msg').className = `msg ${kind}`;
 }
 
+// "없음"은 CSS로만 그려서 드래그해 복사해도 송장번호만 복사되게 한다.
 function line(r) {
   const div = document.createElement('div');
-  if (r.invoice) {
-    div.textContent = r.invoice;
-    if (r.others) div.append(Object.assign(document.createElement('small'), { textContent: ` (${r.others + 1}개 중 맨 위)` }));
-  } else if (r.name) {
-    div.textContent = '없음';
-    div.className = 'miss';
-  }
+  div.textContent = r.invoice;
+  if (!r.invoice && r.name) div.className = 'miss';
   return div;
 }
 
@@ -67,7 +63,7 @@ async function onCopy() {
     document.execCommand('copy');
     ta.remove();
   }
-  say(`송장번호 ${results.length}줄을 복사했습니다. 이름 옆 칸에 붙여넣으세요.`, 'ok');
+  say(`송장번호 ${results.length}줄을 복사했습니다. 엑셀 이름 옆 칸에 붙여넣으세요.`, 'ok');
 }
 
 // 두 칸 스크롤을 함께 움직여 같은 줄끼리 나란히 유지한다.
