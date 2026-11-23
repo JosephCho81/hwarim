@@ -11,25 +11,26 @@ function say(text, kind = '') {
   $('msg').className = `msg ${kind}`;
 }
 
-function cell(text, className = '') {
-  return Object.assign(document.createElement('td'), { textContent: text, className });
+function line(r) {
+  const div = document.createElement('div');
+  if (r.invoice) {
+    div.textContent = r.invoice;
+    if (r.others) div.append(Object.assign(document.createElement('small'), { textContent: ` (${r.others + 1}개 중 맨 위)` }));
+  } else if (r.name) {
+    div.textContent = '없음';
+    div.className = 'miss';
+  }
+  return div;
 }
 
 function render() {
   const names = parseNames($('names').value);
   results = index ? lookup(names, index) : [];
   $('copyBtn').disabled = !results.length;
-  if (!index) { $('result').replaceChildren(); return; }
-  if (!names.length) { say('이름을 붙여넣으세요.'); $('result').replaceChildren(); return; }
-
-  const rows = results.map((r) => {
-    const tr = document.createElement('tr');
-    const inv = r.invoice ? cell(r.invoice) : cell(r.name ? '없음' : '', 'miss');
-    if (r.others) inv.append(Object.assign(document.createElement('small'), { textContent: ` (송장 ${r.others + 1}개 중 맨 위)` }));
-    tr.append(cell(r.name), inv);
-    return tr;
-  });
-  $('result').replaceChildren(...rows);
+  $('out').replaceChildren(...results.map(line));
+  $('out').scrollTop = $('names').scrollTop;
+  if (!index) return;
+  if (!names.length) { say('왼쪽에 이름을 붙여넣으세요.'); return; }
   const asked = results.filter((r) => r.name).length;
   const found = results.filter((r) => r.invoice).length;
   say(`${asked}명 중 ${found}명 찾음${asked - found ? `, ${asked - found}명 없음` : ''}`, found === asked ? 'ok' : 'err');
@@ -69,6 +70,15 @@ async function onCopy() {
   say(`송장번호 ${results.length}줄을 복사했습니다. 이름 옆 칸에 붙여넣으세요.`, 'ok');
 }
 
+// 두 칸 스크롤을 함께 움직여 같은 줄끼리 나란히 유지한다.
+function syncScroll(from, to) {
+  from.addEventListener('scroll', () => {
+    if (to.scrollTop !== from.scrollTop) to.scrollTop = from.scrollTop;
+  });
+}
+
 $('file').addEventListener('change', onFile);
 $('names').addEventListener('input', render);
 $('copyBtn').addEventListener('click', onCopy);
+syncScroll($('names'), $('out'));
+syncScroll($('out'), $('names'));
