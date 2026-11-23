@@ -46,18 +46,19 @@ h2 { font-size: 17px; margin: 0 0 8px; display: flex; align-items: center; gap: 
 .msg { min-height: 1.6em; margin: 8px 0 0; white-space: pre-line; }
 .msg.ok { color: var(--accent); }
 .msg.err { color: var(--err); font-weight: 600; }
-.keep {
-  display: flex; justify-content: space-between; align-items: center; gap: 8px;
-  background: var(--bg); border-radius: 6px; padding: 8px 12px; font-size: 13px; margin-bottom: 8px;
-}
-.link { background: none; border: 0; color: var(--err); cursor: pointer; text-decoration: underline; font: inherit; }
-.link:disabled { color: var(--muted); cursor: default; text-decoration: none; }
-details { border-top: 1px solid var(--line); padding: 8px 0; }
-summary { cursor: pointer; font-weight: 600; }
-summary .count { display: inline-block; min-width: 2em; margin-left: 6px; color: var(--accent); }
-details.warn summary .count { color: var(--warn); }
 .table-wrap { overflow-x: auto; }
 table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 13px; }
 th, td { border: 1px solid var(--line); padding: 4px 6px; text-align: left; vertical-align: top; white-space: nowrap; }
 th { background: var(--bg); }
-.empty { color: var(--muted); font-size: 13px; margin: 6px 0 0; }
+textarea {
+  width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px;
+  font: inherit; font-size: 14px; resize: vertical;
+}
+textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+.btn {
+  background: var(--accent); color: #fff; border: 0; border-radius: 6px;
+  padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer; margin-top: 8px;
+}
+.btn:disabled { background: var(--line); color: var(--muted); cursor: default; }
+td.miss { color: var(--err); }
+td small { color: var(--warn); }

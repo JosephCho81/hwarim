@@ -5,47 +5,38 @@
   <base href="/galaxy/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>발송처리 변환</title>
+  <title>송장번호 찾기</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="css/style.css">
-  <script src="vendor/xlsx-populate.min.js" defer></script>
   <script type="module" src="js/ui.js"></script>
 </head>
 <body>
   <main>
-    <h1>스마트스토어 발송처리 변환</h1>
+    <h1>이름으로 송장번호 찾기</h1>
     <p class="note">파일은 이 브라우저 안에서만 처리되며 서버로 전송되지 않습니다.</p>
 
     <section class="card">
-      <h2><span class="step">1</span> 주문파일 → 롯데택배 업로드 파일</h2>
-      <p>스마트스토어에서 받은 주문파일(암호 1234)을 올리세요. 롯데업로드 파일이 바로 내려받아집니다.</p>
-      <label class="drop">
-        <input type="file" id="orderFile" accept=".xlsx,.xls">
-        <span>주문파일 선택</span>
-      </label>
-      <p class="msg" id="msg1" role="status"></p>
+      <h2><span class="step">1</span> 이름 붙여넣기</h2>
+      <p>한 줄에 한 명씩 붙여넣으세요. 엑셀 열을 그대로 복사해도 됩니다.</p>
+      <textarea id="names" rows="10" spellcheck="false" placeholder="홍길동&#10;김철수"></textarea>
     </section>
 
     <section class="card">
-      <h2><span class="step">2</span> 롯데 송장파일 → 네이버 발송처리 파일</h2>
-      <div class="keep" id="keep">
-        <span id="keepText"></span>
-        <button type="button" id="clearBtn" class="link">보관 데이터 삭제</button>
-      </div>
-      <div id="reorder" hidden>
-        <p>보관된 주문 데이터가 없습니다. 주문파일(1번)을 먼저 다시 올리세요.</p>
-        <label class="drop">
-          <input type="file" id="orderFile2" accept=".xlsx,.xls">
-          <span>주문파일 다시 올리기</span>
-        </label>
-      </div>
+      <h2><span class="step">2</span> 롯데 송장파일 올리기</h2>
       <p>롯데택배 ALPS에서 받은 송장 결과 파일(.xlsx)을 올리세요.</p>
       <label class="drop">
-        <input type="file" id="invoiceFile" accept=".xlsx">
-        <span>송장파일 선택</span>
+        <input type="file" id="file" accept=".xlsx,.xls">
+        <span id="fileName">송장파일 선택</span>
       </label>
-      <p class="msg" id="msg2" role="status"></p>
-      <div id="report"></div>
+    </section>
+
+    <section class="card">
+      <h2><span class="step">3</span> 결과</h2>
+      <p class="msg" id="msg" role="status"></p>
+      <button type="button" id="copyBtn" class="btn" disabled>송장번호만 복사</button>
+      <div class="table-wrap">
+        <table><tbody id="result"></tbody></table>
+      </div>
     </section>
   </main>
 </body>

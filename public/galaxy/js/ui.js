@@ -1,121 +1,74 @@
-// 화면 연결. 고객 데이터는 console·외부 전송 금지.
+// 화면 연결. 고객 데이터는 console·외부 전송 금지. 값은 textContent로만 넣는다(XSS 방지).
 import { readWorkbook, sheetRowsWith, UserError } from './sheet.js';
-import { openOrderFile } from './decrypt.js';
-import { parseOrders, lotteFile, toMatchRecords, ORDER_HEADERS } from './toLotte.js';
-import { parseInvoices, matchInvoices, INVOICE_HEADERS } from './match.js';
-import { naverFile } from './toNaver.js';
-import { saveRecords, loadRecords, clearRecords } from './store.js';
-import { renderReport } from './report.js';
+import { INVOICE_HEADERS, parseNames, invoiceIndex, lookup } from './names.js';
 
 const $ = (id) => document.getElementById(id);
-const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+let index = null;
+let results = [];
 
-function say(id, text, kind = '') {
-  const n = $(id);
-  n.textContent = text;
-  n.className = `msg ${kind}`;
+function say(text, kind = '') {
+  $('msg').textContent = text;
+  $('msg').className = `msg ${kind}`;
 }
 
-function errorText(e) {
-  return e instanceof UserError ? e.message : '처리 중 오류가 발생했습니다. 파일을 확인하세요.';
+function cell(text, className = '') {
+  return Object.assign(document.createElement('td'), { textContent: text, className });
 }
 
-function download({ bytes, name }, mime) {
-  const url = URL.createObjectURL(new Blob([bytes], { type: mime }));
-  const a = Object.assign(document.createElement('a'), { href: url, download: name });
-  document.body.append(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 10000);
+function render() {
+  const names = parseNames($('names').value);
+  results = index ? lookup(names, index) : [];
+  $('copyBtn').disabled = !results.length;
+  if (!index) { $('result').replaceChildren(); return; }
+  if (!names.length) { say('이름을 붙여넣으세요.'); $('result').replaceChildren(); return; }
+
+  const rows = results.map((r) => {
+    const tr = document.createElement('tr');
+    const inv = r.invoice ? cell(r.invoice) : cell(r.name ? '없음' : '', 'miss');
+    if (r.others) inv.append(Object.assign(document.createElement('small'), { textContent: ` (송장 ${r.others + 1}개 중 맨 위)` }));
+    tr.append(cell(r.name), inv);
+    return tr;
+  });
+  $('result').replaceChildren(...rows);
+  const asked = results.filter((r) => r.name).length;
+  const found = results.filter((r) => r.invoice).length;
+  say(`${asked}명 중 ${found}명 찾음${asked - found ? `, ${asked - found}명 없음` : ''}`, found === asked ? 'ok' : 'err');
 }
 
-function fmtTime(ms) {
-  const d = new Date(ms);
-  const p = (n) => String(n).padStart(2, '0');
-  return `${d.getMonth() + 1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`;
-}
-
-function refreshKeep() {
-  const data = loadRecords();
-  $('keepText').textContent = data
-    ? `주문 데이터 보관 중: ${data.records.length}행 (${fmtTime(data.savedAt)} 저장, 24시간 후 자동 삭제)`
-    : '보관된 주문 데이터 없음';
-  $('clearBtn').disabled = !data;
-  $('reorder').hidden = !!data;
-  return data;
-}
-
-async function readOrders(file) {
-  const plain = await openOrderFile(await file.arrayBuffer());
-  return parseOrders(sheetRowsWith(readWorkbook(plain), ORDER_HEADERS));
-}
-
-function keep(orders) {
-  return saveRecords(toMatchRecords(orders))
-    ? ''
-    : '\n(브라우저 저장소를 쓸 수 없어 2단계에서 주문파일을 다시 올려야 합니다)';
-}
-
-async function onOrderFile(e) {
+async function onFile(e) {
   const file = e.target.files[0];
   e.target.value = '';
   if (!file) return;
-  say('msg1', '처리 중…');
-  try {
-    const orders = await readOrders(file);
-    download(lotteFile(orders), XLSX_MIME);
-    const manual = orders.filter((o) => !o.orderNo).length;
-    say('msg1', `롯데업로드 파일을 내려받았습니다. ${orders.length}행 (수기 행 ${manual}행 포함)${keep(orders)}`, 'ok');
-  } catch (err) {
-    say('msg1', errorText(err), 'err');
-  }
-  refreshKeep();
-}
-
-async function onReorder(e) {
-  const file = e.target.files[0];
-  e.target.value = '';
-  if (!file) return;
-  say('msg2', '주문파일 읽는 중…');
-  try {
-    const orders = await readOrders(file);
-    say('msg2', `주문파일 ${orders.length}행을 불러왔습니다. 이제 송장파일을 올리세요.${keep(orders)}`, 'ok');
-  } catch (err) {
-    say('msg2', errorText(err), 'err');
-  }
-  refreshKeep();
-}
-
-async function onInvoiceFile(e) {
-  const file = e.target.files[0];
-  e.target.value = '';
-  if (!file) return;
-  $('report').replaceChildren();
-  const data = refreshKeep();
-  if (!data) { say('msg2', '보관된 주문 데이터가 없습니다. 주문파일(1번)을 먼저 올리세요.', 'err'); return; }
-  say('msg2', '처리 중…');
+  index = null;
+  say('처리 중…');
   try {
     const buf = new Uint8Array(await file.arrayBuffer());
     if (!buf.length) throw new UserError('빈 파일입니다.');
-    const invoices = parseInvoices(sheetRowsWith(readWorkbook(buf), INVOICE_HEADERS));
-    const result = matchInvoices(data.records, invoices);
-    renderReport($('report'), result);
-    if (!result.assigned.length) throw new UserError('발송처리할 행이 없습니다. 아래 목록을 확인하세요.');
-    download(naverFile(result.assigned), 'application/vnd.ms-excel');
-    clearRecords();
-    say('msg2', `발송처리 파일을 내려받았습니다. ${result.assigned.length}행. 보관 데이터는 삭제했습니다.`, 'ok');
+    index = invoiceIndex(sheetRowsWith(readWorkbook(buf), INVOICE_HEADERS));
+    $('fileName').textContent = `불러온 파일: ${file.name}`;
+    render();
   } catch (err) {
-    say('msg2', errorText(err), 'err');
+    $('fileName').textContent = '송장파일 선택';
+    render();
+    say(err instanceof UserError ? err.message : '처리 중 오류가 발생했습니다. 파일을 확인하세요.', 'err');
   }
-  refreshKeep();
 }
 
-$('orderFile').addEventListener('change', onOrderFile);
-$('orderFile2').addEventListener('change', onReorder);
-$('invoiceFile').addEventListener('change', onInvoiceFile);
-$('clearBtn').addEventListener('click', () => {
-  clearRecords();
-  refreshKeep();
-  say('msg2', '보관 데이터를 삭제했습니다.');
-});
-refreshKeep();
+// 붙여넣은 이름과 줄 위치가 맞도록 없는 사람은 빈 줄로 복사한다.
+async function onCopy() {
+  const text = results.map((r) => r.invoice).join('\n');
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const ta = Object.assign(document.createElement('textarea'), { value: text });
+    document.body.append(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+  say(`송장번호 ${results.length}줄을 복사했습니다. 이름 옆 칸에 붙여넣으세요.`, 'ok');
+}
+
+$('file').addEventListener('change', onFile);
+$('names').addEventListener('input', render);
+$('copyBtn').addEventListener('click', onCopy);
